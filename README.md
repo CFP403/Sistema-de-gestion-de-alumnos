@@ -1,1 +1,1 @@
-# Sistema-de-gestion-de-alumnos
+# Sistema de gestion de alumnos
