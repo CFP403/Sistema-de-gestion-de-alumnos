@@ -1,6 +1,5 @@
 
 
-
 package ventanas;
 
 import javax.swing.*;
@@ -8,6 +7,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class VentanaPrincipal extends JFrame implements ActionListener{
+    
+    private JMenuItem ingresarAlumno, modificarAlumno, eliminarAlumno;
+    private JMenuItem ingresarDocente, modificarDocente, eliminarDocente;
     
     public VentanaPrincipal(){
         super("Sistema de gestion  -  CFP 403");
@@ -17,27 +19,48 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
         JMenuBar menuBar = new JMenuBar();        
         this.setJMenuBar(menuBar);
         
+        //Alumno
         JMenu alumno = new JMenu("Alumno");
-        JMenuItem ingresarAlumno = new JMenuItem("Ingresar alumno");
-        JMenuItem modificarAlumno = new JMenuItem("Modificar alumno");
-        JMenuItem eliminarAlumno = new JMenuItem("Eliminar alumno");
+        ingresarAlumno = new JMenuItem("Ingresar alumno");
+        KeyStroke ctrlN = KeyStroke.getKeyStroke(KeyEvent.VK_N, Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask());
+        ingresarAlumno.setAccelerator(ctrlN);
+        ingresarAlumno.addActionListener(this);
+                
+        modificarAlumno = new JMenuItem("Modificar alumno");
+        KeyStroke ctrlM = KeyStroke.getKeyStroke(KeyEvent.VK_M, Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask());
+        modificarAlumno.setAccelerator(ctrlM);
+        modificarAlumno.addActionListener(this);
         
+        eliminarAlumno = new JMenuItem("Eliminar alumno");
+        eliminarAlumno.addActionListener(this);
+        KeyStroke ctrlE = KeyStroke.getKeyStroke(KeyEvent.VK_E, Toolkit.getDefaultToolkit ().getMenuShortcutKeyMask());
+        eliminarAlumno.setAccelerator(ctrlE);
+        
+        //Docente
         JMenu docente = new JMenu("Docente");
-        JMenuItem ingresarDocente = new JMenuItem("Ingresar docente");
-        JMenuItem modificarDocente = new JMenuItem("Modificar docente");
-        JMenuItem eliminarDocente = new JMenuItem("Eliminar docente");
+        ingresarDocente = new JMenuItem("Ingresar docente");
+        ingresarDocente.addActionListener(this);
         
+        modificarDocente = new JMenuItem("Modificar docente");
+        modificarDocente.addActionListener(this);
+          
+        eliminarDocente = new JMenuItem("Eliminar docente");
+        eliminarDocente.addActionListener(this);
+        
+        //Curso
         JMenu curso = new JMenu("Curso");
         JMenuItem ingresarCurso = new JMenuItem("Dar de alta un curso");
         JMenuItem modificarCurso = new JMenuItem("Modificar curso");
         JMenuItem eliminarCurso = new JMenuItem("Eliminar curso");
         
+        //Reportes
         JMenu reportes = new JMenu("Reportes");
         JMenuItem listarDocentes = new JMenuItem("Listar docentes");
         JMenuItem listarAlumnos = new JMenuItem("Listar alumnos");
         JMenuItem listarCursos = new JMenuItem("Listar cursos");
         JMenuItem listarAsistencia = new JMenuItem("Listar asistencia a cursos");
-               
+             
+        //Ayuda
         JMenu ayuda = new JMenu("Ayuda");
         JMenuItem ayudaDocumentacion = new JMenuItem("Documentacion");
         JMenuItem ayudaAcercaDe = new JMenuItem("Acerca de ");
@@ -78,7 +101,37 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+       
+        /* Shortcuts Alumno */
+        if (e.getSource() == ingresarAlumno) {
+            //Ventana ingresar alumno
+            JOptionPane.showMessageDialog ( this, "Ventana Ingresar Alumno", "Ingresar Alumno", JOptionPane.INFORMATION_MESSAGE );
+        }
         
+        if (e.getSource() == modificarAlumno) {
+            //Ventana modificar alumno
+            JOptionPane.showMessageDialog ( this, "Ventana Modificar Alumno", "Modificar Alumno", JOptionPane.INFORMATION_MESSAGE );
+        }
+        
+        if (e.getSource() == eliminarAlumno) {
+            //Ventana eliminar alumno
+            JOptionPane.showMessageDialog ( this, "Ventana Eliminar Alumno", "Eliminar Alumno", JOptionPane.INFORMATION_MESSAGE );
+        }
+        
+        /* Shortcuts Docente */
+        if (e.getSource() == ingresarDocente) {
+            //Ventana ingresar alumno
+            JOptionPane.showMessageDialog ( this, "Ventana Ingresar Docente", "Ingresar Docente", JOptionPane.INFORMATION_MESSAGE );
+        }
+        
+        if (e.getSource() == modificarDocente) {
+            //Ventana modificar alumno
+            JOptionPane.showMessageDialog ( this, "Ventana Modificar Docente", "Modificar Docente", JOptionPane.INFORMATION_MESSAGE );
+        }
+        
+        if (e.getSource() == eliminarDocente) {
+            //Ventana eliminar alumno
+            JOptionPane.showMessageDialog ( this, "Ventana Eliminar Docente", "Eliminar Docente", JOptionPane.INFORMATION_MESSAGE );
+        }
     }
-    
 }
