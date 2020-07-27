@@ -1,6 +1,6 @@
 
 
-package sistema.de.gestion;
+package sistemaDeGestion;
 
 import ventanas.VentanaPrincipal;
 
