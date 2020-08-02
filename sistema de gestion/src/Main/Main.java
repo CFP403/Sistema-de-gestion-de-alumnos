@@ -12,6 +12,6 @@ public class Main {
     
         VentanaPrincipal root = new VentanaPrincipal();
         root.Mostrar();
-        
+
     }
 }
