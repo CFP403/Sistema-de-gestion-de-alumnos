@@ -79,6 +79,9 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
         menuBar.add(curso);
         menuBar.add(reportes);
         menuBar.add(ayuda);
+    
+        InternalFrame ifr = new InternalFrame(this);
+    
     }
     
     public void Mostrar(){
