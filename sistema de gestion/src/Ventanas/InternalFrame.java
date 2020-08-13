@@ -1,7 +1,6 @@
 
 package Ventanas;
 
-import java.awt.*;
 import javax.swing.*;
 
 /**
