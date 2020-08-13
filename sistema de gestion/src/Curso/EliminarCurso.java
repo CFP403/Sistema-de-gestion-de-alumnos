@@ -12,8 +12,7 @@ public class EliminarCurso extends JDialog{
     public EliminarCurso()
     {
         this.setTitle("Eliminar Curso");
-        
-        
+
         
         
     }
