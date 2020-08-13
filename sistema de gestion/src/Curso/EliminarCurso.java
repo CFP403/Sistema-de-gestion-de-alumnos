@@ -7,23 +7,28 @@ import javax.swing.*;
  * @author Lucas
  */
 
-public class EliminarCurso extends JDialog{
+public class EliminarCurso extends JInternalFrame
+{
  
     public EliminarCurso()
     {
-        this.setTitle("Eliminar Curso");
-
         
+        super ( "Eliminar Curso" );
+        
+        this.Configurar();
         
     }
     
-    public void Mostrar()
+    private void Configurar ()
     {
-        this.setModal(true);
-        ImageIcon img = new ImageIcon("src/Imagenes/icon32.png");
-        this.setIconImage(img.getImage());
-        this.setSize (500, 400);
-        this.setVisible(true);
-        this.setLocationRelativeTo(null);
+        
+        this.setResizable ( true );
+        this.setClosable ( true );
+        this.setMaximizable ( true );
+        this.setIconifiable ( true );
+        this.setSize ( 250 , 200 );
+        this.setVisible ( true );
+        
     }
+    
 }

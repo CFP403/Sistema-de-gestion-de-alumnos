@@ -1,32 +1,53 @@
 
 package Ventanas;
 
-import Curso.*;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import Curso.EliminarCurso;
+import Curso.IngresarCurso;
+import Curso.ModificarCurso;
 
-public class VentanaPrincipal extends JFrame implements ActionListener{
+import Alumno.EliminarAlumno;
+import Alumno.IngresarAlumno;
+import Alumno.ModificarAlumno;
+
+import Profesor.EliminarProfesor;
+import Profesor.IngresarProfesor;
+import Profesor.ModificarProfesor;
+
+
+import javax.swing.JFrame;
+import javax.swing.JDesktopPane;
+import javax.swing.JMenuItem;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class VentanaPrincipal extends JFrame implements ActionListener
+{
     
     private JMenuItem ingresarAlumno, modificarAlumno, eliminarAlumno;
     private JMenuItem ingresarDocente, modificarDocente, eliminarDocente;
     private JMenuItem ingresarCurso, modificarCurso, eliminarCurso;
+    private JDesktopPane panelInterno;
     
     public VentanaPrincipal()
     {
         
-        super("Sistema de gestion  -  CFP 403");
-        
-        this.Configuracion();
+        super ( "Sistema de gestion  -  CFP 403" );
         
         this.BarraHerramientas();
         
+        this.ConfigurarDesktopPane();
+        
     }
     
-    private void Configuracion ()
+    private void ConfigurarDesktopPane ()
     {
         
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+        this.panelInterno = new JDesktopPane ();
+        this.setContentPane ( this.panelInterno );
         
     }
     
@@ -102,63 +123,92 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
         menuBar.add(curso);
         menuBar.add(reportes);
         menuBar.add(ayuda);
-
-        InternalFrame ifr = new InternalFrame(this);
     
     }
     
     public void Mostrar()
     {
+        
         ImageIcon img = new ImageIcon("src/Imagenes/icon32.png");
-        this.setIconImage(img.getImage());
-        this.setSize (900, 700);
-        this.setVisible(true);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+        this.setIconImage ( img.getImage() );
+        this.setSize ( 900, 700 );
+        this.setVisible ( true );
+        this.setLocationRelativeTo ( null );
+        this.setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );  
+    
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) 
+    public void actionPerformed ( ActionEvent itemSeleccionado ) 
     {
         
+        System.out.println ( "Seleccionado: " + itemSeleccionado.getActionCommand() );
+        
         // Menu Alumno:
-        if ( e.getActionCommand().equals ( "Ingresar alumno" ) ) 
+        if ( itemSeleccionado.getActionCommand().equals ( "Ingresar alumno" ) ) 
         {
             
-        }
-        if ( e.getActionCommand().equals ( "Modificar alumno" ) ) 
-        {
-           
-        }
-        if ( e.getActionCommand().equals ( "Eliminar alumno" ) ) 
-        {
+            this.panelInterno.add ( new IngresarAlumno () );
             
         }
         
-        
-        // Curso
-        
-        if ( e.getActionCommand().equals ( "Dar de alta un curso" ) ) 
+        if ( itemSeleccionado.getActionCommand().equals ( "Modificar alumno" ) ) 
         {
-        
-            IngresarCurso Curso = new IngresarCurso();
-            Curso.Mostrar();
-        
-        }
-        if (e.getActionCommand().equals ( "Modificar curso" ) ) 
-        {
-        
-            ModificarCurso Curso = new ModificarCurso();
-            Curso.Mostrar();
-        
+            
+            this.panelInterno.add ( new ModificarAlumno () );
+            
         }
         
-        if (e.getActionCommand().equals ( "Eliminar curso" ) ) 
+        if ( itemSeleccionado.getActionCommand().equals ( "Eliminar alumno" ) ) 
+        {
+            
+            this.panelInterno.add ( new EliminarAlumno () );
+            
+        }
+        
+        
+        // Menu Curso:
+        if ( itemSeleccionado.getActionCommand().equals ( "Dar de alta un curso" ) ) 
         {
         
-            EliminarCurso Curso = new EliminarCurso();
-            Curso.Mostrar();
+            this.panelInterno.add ( new IngresarCurso () );
         
+        }
+        
+        if ( itemSeleccionado.getActionCommand().equals ( "Modificar curso" ) ) 
+        {
+        
+            this.panelInterno.add ( new ModificarCurso () );
+        
+        }
+        
+        if ( itemSeleccionado.getActionCommand().equals ( "Eliminar curso" ) ) 
+        {
+        
+            this.panelInterno.add ( new EliminarCurso () );
+        
+        }
+        
+        // Menu Profesor:
+        if ( itemSeleccionado.getActionCommand().equals ( "Ingresar docente" ) )
+        {
+            
+            this.panelInterno.add ( new IngresarProfesor () );
+            
+        }
+        
+        if ( itemSeleccionado.getActionCommand().equals ( "Modificar docente" ) )
+        {
+            
+            this.panelInterno.add ( new ModificarProfesor () );
+            
+        }
+        
+        if ( itemSeleccionado.getActionCommand().equals ( "Eliminar docente" ) )
+        {
+            
+            this.panelInterno.add ( new EliminarProfesor () );
+            
         }
         
     }

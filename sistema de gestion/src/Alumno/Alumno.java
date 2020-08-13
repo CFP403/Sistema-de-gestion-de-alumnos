@@ -2,9 +2,12 @@
 package Alumno;
 
 /**
- * @author Lucas
+ * @author VarelaVargasLeandro
  */
 
-public class Alumno {
+public class Alumno 
+{
+    
+    
     
 }
