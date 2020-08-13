@@ -19,6 +19,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
         
         this.Configuracion();
         
+        this.BarraHerramientas();
         
     }
     
@@ -117,33 +118,45 @@ public class VentanaPrincipal extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-                
-        //ALumno
         
-        if (e.getActionCommand() == "Ingresar alumno") {
-            // Constructor de alumno
+        // Menu Alumno:
+        if ( e.getActionCommand().equals ( "Ingresar alumno" ) ) 
+        {
+            
         }
-        if (e.getActionCommand() == "Modificar alumno") {
-            // Constructor de alumno
+        if ( e.getActionCommand().equals ( "Modificar alumno" ) ) 
+        {
+           
         }
-        if (e.getActionCommand() == "Eliminar alumno") {
-            // Constructor de alumno
+        if ( e.getActionCommand().equals ( "Eliminar alumno" ) ) 
+        {
+            
         }
         
         
         // Curso
         
-        if (e.getActionCommand() == "Dar de alta un curso") {
+        if ( e.getActionCommand().equals ( "Dar de alta un curso" ) ) 
+        {
+        
             IngresarCurso Curso = new IngresarCurso();
             Curso.Mostrar();
+        
         }
-        if (e.getActionCommand() == "Modificar curso") {
+        if (e.getActionCommand().equals ( "Modificar curso" ) ) 
+        {
+        
             ModificarCurso Curso = new ModificarCurso();
             Curso.Mostrar();
+        
         }
-        if (e.getActionCommand() == "Eliminar curso") {
+        
+        if (e.getActionCommand().equals ( "Eliminar curso" ) ) 
+        {
+        
             EliminarCurso Curso = new EliminarCurso();
             Curso.Mostrar();
+        
         }
         
     }
