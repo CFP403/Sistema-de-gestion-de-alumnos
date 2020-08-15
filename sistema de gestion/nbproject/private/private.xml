@@ -11,11 +11,15 @@
             <file>file:/home/lucas/NetBeansProjects/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Curso/IngresarCurso.java</file>
         </group>
         <group name="Sistema-de-gestion-de-alumnos">
-            <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Curso/ModificarCurso.java</file>
-            <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Main/Main.java</file>
+            <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Alumno/IngresarAlumno.java</file>
             <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Curso/EliminarCurso.java</file>
             <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Ventanas/VentanaPrincipal.java</file>
+            <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Main/Main.java</file>
+            <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Alumno/Alumno.java</file>
+            <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Alumno/EliminarAlumno.java</file>
             <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Curso/IngresarCurso.java</file>
+            <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Curso/ModificarCurso.java</file>
+            <file>file:/home/ba-po8/Desktop/Git/Clonados/Sistema-de-gestion-de-alumnos/sistema%20de%20gestion/src/Alumno/ModificarAlumno.java</file>
         </group>
     </open-files>
 </project-private>
