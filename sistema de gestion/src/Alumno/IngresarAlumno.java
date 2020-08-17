@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -27,7 +28,7 @@ public class IngresarAlumno extends JInternalFrame
     private JPanel jpDatosAlumno;
         //Documento:
             private JComboBox jcbTipoDoc;
-            private JTextField tjfNroDoc;
+            private JTextField jtfNroDoc;
             private ButtonGroup bgEstadoDoc;
                 private JRadioButton jrbBueno;
                 private JRadioButton jrbMalo;
@@ -91,11 +92,31 @@ public class IngresarAlumno extends JInternalFrame
     private void agregarComponentes ()
     {
         
-        
+        this.jpDatosAlumno = new JPanel ();
+            this.jpDatosAlumno.setBorder ( BorderFactory.createTitledBorder ( "Ingreso Alumnos" ) );
+            this.agregarDocumento ( this.jpDatosAlumno );
+            this.add ( this.jpDatosAlumno, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, 0, 0, 1, 1, 1, 1 ) );
+            
             
     }
     
-    private void agregarComponenteGridBag ( Container contenedor, JComponent componente, int Posicionrelativa, int Rellenar, int Fila, int Columna, int Ancho, int Alto, double ExpansionFila, double ExpansionColumna )
+    private void agregarDocumento ( JPanel contenedor )
+    {
+        
+        contenedor.setLayout ( this.layout );
+        
+            // TiposDocumentos:
+            String [] tiposDocumentos = { "DNI", "Cédula Identidad", "Pasaporte", "Libreta de Enrolamiento" };
+            this.jcbTipoDoc = new JComboBox ( tiposDocumentos );
+            contenedor.add ( this.jcbTipoDoc, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, 0, 0, 1, 1, 1, 1 ) );
+            contenedor.add ( new JLabel ( "Nro Doc: " ), this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, 1, 0, 1, 1, 1, 1 ) );
+            this.jtfNroDoc = new JTextField ( 20 );
+            contenedor.add ( this.jtfNroDoc, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST, GridBagConstraints.NONE, 2, 0, 1, 1, 1, 1 ) );
+            
+        
+    }
+    
+    private GridBagConstraints ConstraintsGridBag ( int Posicionrelativa, int Rellenar, int Fila, int Columna, int Ancho, int Alto, double ExpansionFila, double ExpansionColumna )
     {
         
         GridBagConstraints gbc = new GridBagConstraints ();
@@ -109,7 +130,7 @@ public class IngresarAlumno extends JInternalFrame
         gbc.weightx = ExpansionFila;
         gbc.weighty = ExpansionColumna;
         
-        contenedor.add ( componente , gbc );
+        return gbc;
         
     }
     
