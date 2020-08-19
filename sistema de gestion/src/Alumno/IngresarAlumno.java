@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -40,12 +41,12 @@ public class IngresarAlumno extends JInternalFrame
         //Nombre y Sexo:
             private JTextField jtfApellido;
             private JTextField jtfNombre;
-            private JTextField jtfSexo;
+            private JComboBox jcbSexo;
         //Nacimiento:
             private JTextField jtfDiaNacimiento;
             private JTextField jtfMesNacimiento;
             private JTextField jtfAnioNacimiento;
-            private JTextField jtfLugarNaciomiento;
+            private JTextField jtfLugarNacimiento;
             private JTextField jtfNacionalidad;
         //Domicilio:
             private JTextField jtfCalleDomicilio;
@@ -87,8 +88,8 @@ public class IngresarAlumno extends JInternalFrame
         this.setClosable ( true );
         this.setMaximizable ( true );
         this.setIconifiable ( true );
-        this.setSize ( 550, 200 );
-        this.setMinimumSize ( new Dimension ( 550, 100 ) );
+        this.setSize ( 675, 200 );
+        this.setMinimumSize ( new Dimension ( 675, 100 ) );
         this.setLayout ( this.layout );
         
     }
@@ -115,23 +116,28 @@ public class IngresarAlumno extends JInternalFrame
         =            Panel TipoDocumentos            =
         ============================================*/
         JPanel panelTipoDocumentos = new JPanel ();
+            panelTipoDocumentos.setLayout ( new GridLayout ( 2, 1 ) );
         
             /*----------  JComboBox TipoDoc  ----------*/
+            JPanel paneltiposDocumentosComboBox = new JPanel ();
                 String [] tiposDocumentos = { "DNI", "Cédula Identidad", "Pasaporte", "Libreta de Enrolamiento" };
                 this.jcbTipoDoc = new JComboBox ( tiposDocumentos );
-                    panelTipoDocumentos.add ( this.jcbTipoDoc );
+                paneltiposDocumentosComboBox.add ( this.jcbTipoDoc );    
+                
+                    panelTipoDocumentos.add ( paneltiposDocumentosComboBox );
             /*----------  Fin JComboBox TipoDoc  ----------*/
             
             /*----------  Panel NroDoc  ----------*/
                 JPanel panelnroDoc = new JPanel ();
                     JLabel labelNroDoc = new JLabel ( "Nro Doc: " );
                     this.jtfNroDoc = new JTextField ( 8 );
+                    
                     panelnroDoc.add ( labelNroDoc );
                     panelnroDoc.add ( this.jtfNroDoc );
                     panelTipoDocumentos.add ( panelnroDoc );
             /*----------  Fin Panel NroDoc  ----------*/
         
-        contenedorDocumento.add ( panelTipoDocumentos, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST, GridBagConstraints.BOTH, 0, 0, 1, 1, 0.5, ( 1.0 / Filas ), null ) );
+        contenedorDocumento.add ( panelTipoDocumentos, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST, GridBagConstraints.HORIZONTAL, 0, 0, 1, 1, 0.5, 0.05, null ) );
         /*=====  End of Panel TipoDocumentos  ======*/
         
         /*=======================================
@@ -145,23 +151,86 @@ public class IngresarAlumno extends JInternalFrame
             /*----------  Botones EstadoDoc  ----------*/
                 this.bgEstadoDoc = new ButtonGroup ();
                     this.jrbBueno = new JRadioButton ( "Bueno " );
-                    this.bgEstadoDoc.add ( this.jrbBueno );
-                    panelEstado.add ( this.jrbBueno );
                     this.jrbMalo = new JRadioButton ( "Malo " );
-                    this.bgEstadoDoc.add ( this.jrbMalo );
-                    panelEstado.add ( this.jrbMalo );
                     this.jrbEnTramite = new JRadioButton ( "En Trámite " );
-                    this.bgEstadoDoc.add ( this.jrbEnTramite );
-                    panelEstado.add ( this.jrbEnTramite );
                     this.jrbNoPosee = new JRadioButton ( "No Posee " );
+                    
+                    this.bgEstadoDoc.add ( this.jrbBueno );
+                    this.bgEstadoDoc.add ( this.jrbMalo );
+                    this.bgEstadoDoc.add ( this.jrbEnTramite );
                     this.bgEstadoDoc.add ( this.jrbNoPosee );
+                    
+                    panelEstado.add ( this.jrbBueno );
+                    panelEstado.add ( this.jrbMalo );
+                    panelEstado.add ( this.jrbEnTramite );
                     panelEstado.add ( this.jrbNoPosee );
             /*----------  Fin EstadoDoc  ----------*/
         
-        contenedorDocumento.add ( panelEstado, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST, GridBagConstraints.BOTH, 1, 0, 1, 1, 0.5, ( 1.0 / Filas ), null ) );
+        contenedorDocumento.add ( panelEstado, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST, GridBagConstraints.HORIZONTAL, 1, 0, 1, 1, 0.5, 0.05, null ) );
         /*=====  End of Panel EstadoDoc  ======*/
         
+        /*==================================================
+        =            Panel Información Personal            =
+        ==================================================*/
+        JPanel panelInfoPers = new JPanel();
+        double panelInfoFilas = 3.0;
+            panelInfoPers.setLayout ( this.layout );
+                JLabel labelApellidos = new JLabel ( "Apellido/s: " );
+                this.jtfApellido = new JTextField ( 15 );
+                JLabel labelNombres = new JLabel ( "Nombre/s:" );
+                this.jtfNombre = new JTextField ( 15 );
+                JLabel labelSexo = new JLabel ( "Sexo: " );
+                String [] Sexos = { "Masculino", "Femenino" };
+                this.jcbSexo = new JComboBox ( Sexos );
+                
+                panelInfoPers.add ( labelApellidos, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 0, 1, 1, 0.1, ( 1.0 / panelInfoFilas ), null ) );
+                panelInfoPers.add ( this.jtfApellido, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 0, 1, 1, 0.9, ( 1.0 / panelInfoFilas ), null ) );
+                panelInfoPers.add ( labelNombres, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.1, ( 1.0 / panelInfoFilas ), null ) );
+                panelInfoPers.add ( this.jtfNombre, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.9, ( 1.0 / panelInfoFilas ), null ) );
+                panelInfoPers.add ( labelSexo, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 2, 1, 1, 0.1, ( 1.0 / panelInfoFilas ), null ) );
+                panelInfoPers.add ( this.jcbSexo, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.9, ( 1.0 / panelInfoFilas ), null ) );
+                
+        contenedorDocumento.add ( panelInfoPers, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.5, 0.95, null ) );
+        /*=====  End of Panel Información Personal  ======*/
         
+        /*========================================
+        =            Panel Nacimiento            =
+        ========================================*/
+        JPanel panelNac = new JPanel ();
+        double panelNacFilas = 3.0;
+            panelNac.setLayout ( this.layout );
+                JLabel labelFechaNac = new JLabel ( "Fecha de Nacimiento: " );
+                
+                JPanel panelFechaNac = new JPanel ();
+                    panelFechaNac.setLayout ( new FlowLayout ( FlowLayout.LEFT ) );
+                    this.jtfDiaNacimiento = new JTextField ( 2 );
+                    this.jtfMesNacimiento = new JTextField ( 2 );
+                    this.jtfAnioNacimiento = new JTextField ( 4 );
+                    panelFechaNac.add ( this.jtfDiaNacimiento );
+                    panelFechaNac.add ( new JLabel ( "/" ) );
+                    panelFechaNac.add ( this.jtfMesNacimiento );
+                    panelFechaNac.add ( new JLabel ( "/" ) );
+                    panelFechaNac.add ( this.jtfAnioNacimiento );
+                    
+                
+                JLabel labelLugarNacimiento = new JLabel ( "Lugar de Nac: " );
+                this.jtfLugarNacimiento = new JTextField ( 20 );
+                JLabel labelNacionalidad = new JLabel ( "Nacionalidad: " );
+                this.jtfNacionalidad = new JTextField ( 20 );
+                
+                panelNac.add ( labelFechaNac, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 0, 1, 1, 0.1, ( 1.0 / panelNacFilas ), null ) );
+                panelNac.add ( panelFechaNac, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.BOTH, 1, 0, 1, 1, 0.9, ( 1.0 / panelNacFilas ), null ) );
+                panelNac.add ( labelLugarNacimiento, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 1, 1, 1, 0.1, ( 1.0 / panelNacFilas ), null ) );
+                panelNac.add ( this.jtfLugarNacimiento, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.9, ( 1.0 / panelNacFilas ), null )  );
+                panelNac.add ( labelNacionalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 2, 1, 1, 0.1, ( 1.0 / panelNacFilas ), null )  );
+                panelNac.add ( this.jtfNacionalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.9, ( 1.0 / panelNacFilas ), null )  );
+                /*panelNac.add ( labelLugarNacimiento );
+                panelNac.add ( this.jtfLugarNacimiento );
+                panelNac.add ( labelNacionalidad );
+                panelNac.add ( this.jtfNacionalidad );*/               
+                
+        contenedorDocumento.add ( panelNac, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.5, 0.95, null ) );
+        /*=====  End of Panel Nacimiento  ======*/
         
     }
     
