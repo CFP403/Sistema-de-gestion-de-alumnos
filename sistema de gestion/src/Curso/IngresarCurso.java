@@ -134,7 +134,7 @@ public class IngresarCurso extends JInternalFrame implements ActionListener
         this.setClosable ( true );
         this.setMaximizable ( false );
         this.setIconifiable ( true );
-        this.setSize ( 280 , 235 );
+        this.setSize ( 250 , 242 );
         this.setVisible ( true );
         
     }
