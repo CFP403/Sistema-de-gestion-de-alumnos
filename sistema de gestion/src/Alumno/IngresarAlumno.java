@@ -255,35 +255,35 @@ public class IngresarAlumno extends JInternalFrame
                 JLabel labelCalleDomicilio = new JLabel ( "Calle - Domicilio:" );
                 this.jtfDomicilioCalle = new JTextField ( 20 );
                 panelDomic.add ( labelCalleDomicilio, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 0, 0, 1, 1, 0.05, ( 1.0 / panelDomicFilas ), null ) );
-                panelDomic.add ( this.jtfDomicilioCalle, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 1, 0, 3, 1, 0.95, ( 1.0 / panelDomicFilas ), null ) );
+                panelDomic.add ( this.jtfDomicilioCalle, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 0, 3, 1, 0.95, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Domicilio  ----------*/
 
                 /*----------  Número  ----------*/
                 JLabel labelNro = new JLabel ( "N°: " );
                 this.jtfNro = new JTextField ( 4 );
                 panelDomic.add ( labelNro, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
-                panelDomic.add ( this.jtfNro, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 1, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
+                panelDomic.add ( this.jtfNro, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Número  ----------*/
 
                 /*----------  Piso  ----------*/
                 JLabel labelPiso = new JLabel ( " Piso: " );
                 this.jtfPiso = new JTextField ( 10 );
                 panelDomic.add ( labelPiso, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 2, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
-                panelDomic.add ( this.jtfPiso, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 3, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
+                panelDomic.add ( this.jtfPiso, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 3, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Piso  ----------*/
 
                 /*----------  Torre  ----------*/
                 JLabel labelTorre = new JLabel ( "Torre: " );
                 this.jtfTorre = new JTextField ( 10 );
                 panelDomic.add ( labelTorre, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
-                panelDomic.add ( this.jtfTorre, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 1, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
+                panelDomic.add ( this.jtfTorre, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Torre  ----------*/
 
                 /*----------  Dpto  ----------*/
                 JLabel labelDpto = new JLabel ( " Dpto: " );
                 this.jtfDpto = new JTextField ( 10 );
                 panelDomic.add ( labelDpto, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 2, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
-                panelDomic.add ( this.jtfDpto, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 3, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
+                panelDomic.add ( this.jtfDpto, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 3, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Dpto  ----------*/
         /*=====  End of Panel Domicilio  ======*/
 
