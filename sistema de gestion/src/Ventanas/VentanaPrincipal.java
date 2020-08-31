@@ -131,7 +131,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener
         
         ImageIcon img = new ImageIcon("src/Imagenes/icon32.png");
         this.setIconImage ( img.getImage() );
-        this.setSize ( 900, 700 );
+        this.setSize ( 1000, 700 );
         this.setVisible ( true );
         this.setLocationRelativeTo ( null );
         this.setDefaultCloseOperation ( JFrame.EXIT_ON_CLOSE );  
@@ -148,7 +148,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener
         if ( itemSeleccionado.getActionCommand().equals ( "Ingresar alumno" ) ) 
         {
             
-            this.panelInterno.add ( new IngresarAlumno () );
+            this.panelInterno.add ( new IngresarAlumno ().Mostrar() );
             
         }
         
