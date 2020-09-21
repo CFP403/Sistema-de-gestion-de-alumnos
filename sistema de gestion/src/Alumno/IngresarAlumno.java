@@ -10,16 +10,23 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerModel;
+import javax.swing.text.DateFormatter;
 
 /**
  *
@@ -44,9 +51,8 @@ public class IngresarAlumno extends JInternalFrame
             private JTextField jtfNombre;
             private JComboBox jcbSexo;
         //Nacimiento:
-            private JTextField jtfDiaNacimiento;
-            private JTextField jtfMesNacimiento;
-            private JTextField jtfAnioNacimiento;
+            private SpinnerModel smModeloFecha;
+            private JSpinner jsFecha;
             private JTextField jtfLugarNacimiento;
             private JTextField jtfNacionalidad;
         //Domicilio:
@@ -132,7 +138,7 @@ public class IngresarAlumno extends JInternalFrame
         
         this.jbAceptar.addActionListener ( (ActionEvent l) -> {
             
-            
+            System.out.println ( this.bgEstadoDoc.getSelection().getActionCommand() );
             
         });
         
@@ -187,9 +193,13 @@ public class IngresarAlumno extends JInternalFrame
             /*----------  Botones EstadoDoc  ----------*/
                 this.bgEstadoDoc = new ButtonGroup ();
                     this.jrbBueno = new JRadioButton ( "Bueno " );
+                        this.jrbBueno.setActionCommand ( "Bueno" );
                     this.jrbMalo = new JRadioButton ( "Malo " );
+                        this.jrbMalo.setActionCommand ( "Malo" );
                     this.jrbEnTramite = new JRadioButton ( "En Trámite " );
+                        this.jrbEnTramite.setActionCommand( "En Trámite" );
                     this.jrbNoPosee = new JRadioButton ( "No Posee " );
+                        this.jrbNoPosee.setActionCommand("No posee");
 
                     this.bgEstadoDoc.add ( this.jrbBueno );
                     this.bgEstadoDoc.add ( this.jrbMalo );
@@ -258,15 +268,23 @@ public class IngresarAlumno extends JInternalFrame
                 JPanel panelFechaNac = new JPanel ();
                     JLabel labelFechaNac = new JLabel ( "Fecha de Nacimiento: " );
                     panelFechaNac.setLayout ( new FlowLayout ( FlowLayout.LEFT ) );
-                    this.jtfDiaNacimiento = new JTextField ( 2 );
-                    this.jtfMesNacimiento = new JTextField ( 2 );
-                    this.jtfAnioNacimiento = new JTextField ( 4 );
-                    panelFechaNac.add ( labelFechaNac );
-                    panelFechaNac.add ( this.jtfDiaNacimiento );
-                    panelFechaNac.add ( new JLabel ( "/" ) );
-                    panelFechaNac.add ( this.jtfMesNacimiento );
-                    panelFechaNac.add ( new JLabel ( "/" ) );
-                    panelFechaNac.add ( this.jtfAnioNacimiento );
+                    
+                    Calendar calendar = Calendar.getInstance();
+                    Date fechaInicial = calendar.getTime();
+                    calendar.add(Calendar.YEAR, -100);
+                    Date fechaMin = calendar.getTime();
+                    calendar.add(Calendar.YEAR, 200);
+                    Date fechaMax = calendar.getTime();
+                    calendar.add(Calendar.YEAR, -100);
+                    
+                    this.smModeloFecha = new SpinnerDateModel ( fechaInicial, fechaMin, fechaMax, 1 );
+                    this.jsFecha = new JSpinner ( this.smModeloFecha );
+                    
+                    JSpinner.DateEditor editor = new JSpinner.DateEditor(this.jsFecha, "dd/MM/yyyy");
+                    this.jsFecha.setEditor(editor);
+                    
+                        panelFechaNac.add ( labelFechaNac );
+                        panelFechaNac.add ( this.jsFecha );
                 panelNac.add ( panelFechaNac, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 0, 2, 1, 1.0, ( 1.0 / panelNacFilas ), margenlabelsNacimiento ) );
                 /*----------  End of FechaNac  ----------*/
 
@@ -377,37 +395,7 @@ public class IngresarAlumno extends JInternalFrame
                 JLabel labelTelefono = new JLabel ( "Teléfono: " );
                 this.jtfTelefono = new JTextField ( 12 );
                 
-                this.jtfTelefono.addFocusListener ( new FocusAdapter() {
-                    
-                    
-                    @Override
-                    public void focusGained ( FocusEvent e )
-                    {
-                        JTextField telefonoTextField = ((JTextField) e.getSource());
-                        String telefono = telefonoTextField.getText();
-
-
-                        if ( telefono.isBlank() || telefono.isEmpty() )
-                            telefonoTextField.setForeground(Color.BLACK);
-
-                    }  
-                    
-                    
-                    @Override
-                    public void focusLost ( FocusEvent e ) 
-                    {
-                        
-                        JTextField telefonoTextField = ((JTextField) e.getSource());
-                        String telefono = telefonoTextField.getText();
-
-                        if ( telefono.matches ( "[+]?\\d{2,}[ ]*\\d++" ) )
-                            telefonoTextField.setForeground(Color.GREEN);
-                        else
-                            telefonoTextField.setForeground(Color.RED);
-
-                    }
-                    
-                });
+                this.jtfTelefono.addFocusListener ( this.telefono );
                 
                 panelLocalidadContacto.add ( labelTelefono, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.07, ( 1.0 / panelLocalidadContactoFilas ), null ) );
                 panelLocalidadContacto.add ( this.jtfTelefono, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.63, ( 1.0 / panelLocalidadContactoFilas ), null ) );
@@ -450,16 +438,22 @@ public class IngresarAlumno extends JInternalFrame
             /*----------  Grupo Botones Niveles  ----------*/
             this.bgNivelInstruccion = new ButtonGroup ();
                     this.jrbNinguno = new JRadioButton ( "Ninguno" );
+                        this.jrbNinguno.setActionCommand ( "Ninguno" );
                     this.bgNivelInstruccion.add ( this.jrbNinguno ); 
                     this.jrbPrimario = new JRadioButton ( "Primario" );
+                        this.jrbPrimario.setActionCommand ( "Primario" );
                     this.bgNivelInstruccion.add ( this.jrbPrimario );
                     this.jrbSecundario = new JRadioButton ( "Secundario" );
+                        this.jrbSecundario.setActionCommand( "Secundario" );
                     this.bgNivelInstruccion.add ( this.jrbSecundario );
                     this.jrbTerciario = new JRadioButton ( "Terciario" );
+                        this.jrbTerciario.setActionCommand( "Terciario" );
                     this.bgNivelInstruccion.add ( this.jrbTerciario );
                     this.jrbUniversitario = new JRadioButton ( "Universitario" );
+                        this.jrbUniversitario.setActionCommand ( "Universitario" );
                     this.bgNivelInstruccion.add ( this.jrbUniversitario );
                     this.jrbPosgrado = new JRadioButton ( "Posgrado" );
+                        this.jrbPosgrado.setActionCommand("Posgrado");
                     this.bgNivelInstruccion.add ( this.jrbPosgrado );
             /*----------  End of Grupo Botones Niveles  ----------*/   
             /*----------  Panel NivelInstruccionBotones  ----------*/
@@ -479,10 +473,13 @@ public class IngresarAlumno extends JInternalFrame
             /*----------  Panel NivelCompleto  ----------*/
             this.bgHasta = new ButtonGroup ();
                 this.jrbCompleto = new JRadioButton ( "Completo" );
+                    this.jrbCompleto.setActionCommand( "Completo" );
                 this.bgHasta.add ( this.jrbCompleto );
                 this.jrbIncompleto = new JRadioButton ( "Incompleto" );
+                    this.jrbIncompleto.setActionCommand ( "Incompleto" );
                 this.bgHasta.add ( this.jrbIncompleto );
                 this.jrbHastaAnio = new JRadioButton ( "Hasta Año" );
+                    this.jrbHastaAnio.setActionCommand("Hasta Año");
                 this.bgHasta.add ( this.jrbHastaAnio );
             /*----------  End of Panel NivelCompleto  ----------*/
             /*----------  Panel HastaAnio  ----------*/
@@ -491,6 +488,9 @@ public class IngresarAlumno extends JInternalFrame
                     JLabel labelAnioCompleto = new JLabel ( "Hasta Año/Grado: " );    
                     panelHastaAnio.add ( labelAnioCompleto );
                     this.jtfAnioCompleto = new JTextField ( 5 );
+                    
+                    this.jtfAnioCompleto.addFocusListener ( this.Solonumeros );
+                    
                     panelHastaAnio.add ( this.jtfAnioCompleto );
             /*----------  End of Panel HastaAnio  ----------*/
             /*----------  Panel NivelCompleto  ----------*/
@@ -544,26 +544,13 @@ public class IngresarAlumno extends JInternalFrame
     private final FocusAdapter Solonumeros = new FocusAdapter () {
       
         @Override
-        public void focusGained ( FocusEvent e )
-        {
-
-            JTextField numerosTextField = ((JTextField) e.getSource());
-            String numeros = numerosTextField.getText();
-
-
-            if ( numeros.isBlank() || numeros.isEmpty() )
-                numerosTextField.setForeground(Color.BLACK);
-
-        }
-        
-        @Override
         public void focusLost ( FocusEvent e ) {
             
             JTextField numeros = ((JTextField) e.getSource());
             String textoNumeros = numeros.getText();
             
-            if ( textoNumeros.matches ( "[0-9]+" ) )
-                numeros.setForeground(Color.GREEN);
+            if ( textoNumeros.matches ( "[0-9]+[ ]*" ) )
+                numeros.setForeground(Color.BLACK);
             else
                 numeros.setForeground(Color.RED);
             
@@ -575,18 +562,6 @@ public class IngresarAlumno extends JInternalFrame
     private final FocusAdapter SoloLetras = new FocusAdapter () {
         
         @Override
-        public void focusGained ( FocusEvent e )
-        {
-            JTextField letrasTextField = ((JTextField) e.getSource());
-            String letras = letrasTextField.getText();
-
-
-            if ( letras.isBlank() || letras.isEmpty() )
-                letrasTextField.setForeground(Color.BLACK);
-
-        }  
-
-        @Override
         public void focusLost ( FocusEvent e )
         {
 
@@ -594,37 +569,7 @@ public class IngresarAlumno extends JInternalFrame
             String letras = letrasTextField.getText();
             
             if ( letras.matches ( "[A-z\\ ]+" ) )
-                letrasTextField.setForeground(Color.GREEN);
-            else
-                letrasTextField.setForeground(Color.RED);
-
-        }
-        
-    };
-    
-    private final FocusAdapter LetrasYNumeros = new FocusAdapter (){
-        
-        @Override
-        public void focusGained ( FocusEvent e )
-        {
-            JTextField letrasTextField = ((JTextField) e.getSource());
-            String letras = letrasTextField.getText();
-
-
-            if ( letras.isBlank() || letras.isEmpty() )
                 letrasTextField.setForeground(Color.BLACK);
-
-        }  
-
-        @Override
-        public void focusLost ( FocusEvent e )
-        {
-
-            JTextField letrasTextField = ((JTextField) e.getSource());
-            String letras = letrasTextField.getText();
-            
-            if ( letras.matches ( "[A-z\\ ]+[0-9]+" ) )
-                letrasTextField.setForeground(Color.GREEN);
             else
                 letrasTextField.setForeground(Color.RED);
 
@@ -635,33 +580,38 @@ public class IngresarAlumno extends JInternalFrame
     private final FocusAdapter SoloEmail = new FocusAdapter () {
         
         @Override
-        public void focusGained ( FocusEvent e )
-        {
-
-            JTextField emailTextField = ((JTextField) e.getSource());
-            String email = emailTextField.getText();
-
-
-            if ( email.isBlank() || email.isEmpty() )
-                emailTextField.setForeground(Color.BLACK);
-
-        }
-
-        @Override
         public void focusLost ( FocusEvent e )
         {
 
             JTextField emailTextField = ((JTextField) e.getSource());
             String email = emailTextField.getText();
-            String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+            String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w ]+";
 
             if ( email.matches(regex) )
-                emailTextField.setForeground ( Color.GREEN );
+                emailTextField.setForeground ( Color.BLACK );
             else
                 emailTextField.setForeground ( Color.RED );
 
         }
         
+    };
+    
+    private final FocusAdapter telefono = new FocusAdapter() {
+                    
+        @Override
+        public void focusLost ( FocusEvent e ) 
+        {
+
+            JTextField telefonoTextField = ((JTextField) e.getSource());
+            String telefono = telefonoTextField.getText();
+
+            if ( telefono.matches ( "[+]?\\d*[ ]*[\\d]+[ ]*" ) )
+                telefonoTextField.setForeground(Color.BLACK);
+            else
+                telefonoTextField.setForeground(Color.RED);
+
+        }
+
     };
     
 }
