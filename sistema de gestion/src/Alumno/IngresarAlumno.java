@@ -1,13 +1,16 @@
 
 package Alumno;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -105,7 +108,7 @@ public class IngresarAlumno extends JInternalFrame
 
             
     }
-
+    
     private void agregarDocumento ( JPanel contenedorDocumento )
     {
 
@@ -113,6 +116,36 @@ public class IngresarAlumno extends JInternalFrame
 
         contenedorDocumento.setLayout ( this.layout );
 
+        // Panel DOCUMENTO y ESTADO DOCUMENTO.
+        this.filaDocumentoYEstadoDocumento(contenedorDocumento, PesoFilasPaneles);
+        // Panel INFORMACIÓN PERSONAL y NACIMIENTO
+        this.filaInfoPersyNac(contenedorDocumento, PesoFilasPaneles);
+        // Panel DOMICILIO y LOCALIDAD/CONTACTO
+        this.filaDomicyLocalidadContacto(contenedorDocumento, PesoFilasPaneles);
+        // Panel NIVEL INSTRUCCION
+        this.filaNivelInstruccion(contenedorDocumento, PesoFilasPaneles);
+        
+        /*=====================================
+        =            Boton Aceptar            =
+        =====================================*/
+        this.jbAceptar = new JButton ( "Aceptar" );
+        
+        this.jbAceptar.addActionListener ( (ActionEvent l) -> {
+            
+            
+            
+        });
+        
+        /*=====  End of Boton Aceptar  ======*/
+
+        contenedorDocumento.add ( this.jbAceptar, this.ConstraintsGridBag ( GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 4, 2, 1, 1.0, 0.1, null ) );
+        contenedorDocumento.add ( new JPanel (), this.ConstraintsGridBag ( GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 5, 2, 1, 1.0, 0.5, null ) );
+
+    }
+
+    private void filaDocumentoYEstadoDocumento ( JPanel contenedorDocumento, double PesoFilasPaneles )
+    {
+        
         /*============================================
         =            Panel TipoDocumentos            =
         ============================================*/
@@ -133,7 +166,9 @@ public class IngresarAlumno extends JInternalFrame
             JPanel panelnroDoc = new JPanel ();
                 JLabel labelNroDoc = new JLabel ( "Nro Doc: " );
                 this.jtfNroDoc = new JTextField ( 8 );
-
+                
+                this.jtfNroDoc.addFocusListener( this.Solonumeros );
+                
                 panelnroDoc.add ( labelNroDoc );
                 panelnroDoc.add ( this.jtfNroDoc );
 
@@ -170,7 +205,11 @@ public class IngresarAlumno extends JInternalFrame
 
         contenedorDocumento.add ( panelTipoDocumentos, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST, GridBagConstraints.BOTH, 0, 0, 1, 1, 0.5, PesoFilasPaneles, null ) );
         contenedorDocumento.add ( panelEstado, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST, GridBagConstraints.HORIZONTAL, 1, 0, 1, 1, 0.5, PesoFilasPaneles, null ) );
-
+        
+    }
+    
+    private void filaInfoPersyNac ( JPanel contenedorDocumento, double PesoFilasPaneles )
+    {
         /*==================================================
         =            Panel Información Personal            =
         ==================================================*/
@@ -181,6 +220,9 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  Apellido/s  ----------*/
                 JLabel labelApellidos = new JLabel ( "Apellido/s: " );
                 this.jtfApellido = new JTextField ( 15 );
+                
+                this.jtfApellido.addFocusListener ( this.SoloLetras );
+                
                 panelInfoPers.add ( labelApellidos, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 0, 1, 1, 0.1, ( 1.0 / panelInfoFilas ), null ) );
                 panelInfoPers.add ( this.jtfApellido, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 0, 1, 1, 0.9, ( 1.0 / panelInfoFilas ), null ) );
                 /*----------  End of Apellido/s  ----------*/
@@ -188,6 +230,9 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  Nombre/s  ----------*/
                 JLabel labelNombres = new JLabel ( "Nombre/s:" );
                 this.jtfNombre = new JTextField ( 15 );
+                
+                this.jtfNombre.addFocusListener ( this.SoloLetras );
+                
                 panelInfoPers.add ( labelNombres, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.1, ( 1.0 / panelInfoFilas ), null ) );
                 panelInfoPers.add ( this.jtfNombre, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.9, ( 1.0 / panelInfoFilas ), null ) );
                 /*----------  End of Nombre/s  ----------*/
@@ -200,8 +245,6 @@ public class IngresarAlumno extends JInternalFrame
                 panelInfoPers.add ( this.jcbSexo, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.9, ( 1.0 / panelInfoFilas ), null ) );
                 /*----------  End of Sexo  ----------*/
         /*=====  End of Panel Información Personal  ======*/
-
-        contenedorDocumento.add ( panelInfoPers, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.5, PesoFilasPaneles, null ) );
 
         /*========================================
         =            Panel Nacimiento            =
@@ -230,6 +273,9 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  LugarNacimiento  ----------*/
                 JLabel labelLugarNacimiento = new JLabel ( "Lugar de Nac: " );
                 this.jtfLugarNacimiento = new JTextField ( 20 );
+                
+                this.jtfLugarNacimiento.addFocusListener ( this.SoloLetras );
+                
                 panelNac.add ( labelLugarNacimiento, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.1, ( 1.0 / panelNacFilas ), margenlabelsNacimiento ) );
                 panelNac.add ( this.jtfLugarNacimiento, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.9, ( 1.0 / panelNacFilas ), null )  );
                 /*----------  End of LugarNacimiento  ----------*/
@@ -237,13 +283,21 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  Nacionalidad  ----------*/
                 JLabel labelNacionalidad = new JLabel ( "Nacionalidad: " );
                 this.jtfNacionalidad = new JTextField ( 20 );
+                
+                this.jtfNacionalidad.addFocusListener ( this.SoloLetras );
+                
                 panelNac.add ( labelNacionalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 2, 1, 1, 0.1, ( 1.0 / panelNacFilas ), margenlabelsNacimiento )  );
                 panelNac.add ( this.jtfNacionalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.9, ( 1.0 / panelNacFilas ), null )  );
                 /*----------  End of Nacionalidad  ----------*/
         /*=====  End of Panel Nacimiento  ======*/
 
+        contenedorDocumento.add ( panelInfoPers, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.5, PesoFilasPaneles, null ) );
         contenedorDocumento.add ( panelNac, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.5, PesoFilasPaneles, null ) );
 
+    }
+    
+    private void filaDomicyLocalidadContacto ( JPanel contenedorDocumento, double PesoFilasPaneles )
+    {
         /*=======================================
         =            Panel Domicilio            =
         =======================================*/
@@ -254,6 +308,9 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  Domicilio  ----------*/
                 JLabel labelCalleDomicilio = new JLabel ( "Calle - Domicilio:" );
                 this.jtfDomicilioCalle = new JTextField ( 20 );
+                
+                this.jtfDomicilioCalle.addFocusListener(this.SoloLetras);
+                
                 panelDomic.add ( labelCalleDomicilio, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 0, 0, 1, 1, 0.05, ( 1.0 / panelDomicFilas ), null ) );
                 panelDomic.add ( this.jtfDomicilioCalle, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 0, 3, 1, 0.95, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Domicilio  ----------*/
@@ -261,6 +318,9 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  Número  ----------*/
                 JLabel labelNro = new JLabel ( "N°: " );
                 this.jtfNro = new JTextField ( 4 );
+                
+                this.jtfNro.addFocusListener ( this.Solonumeros );
+                
                 panelDomic.add ( labelNro, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 panelDomic.add ( this.jtfNro, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Número  ----------*/
@@ -268,6 +328,9 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  Piso  ----------*/
                 JLabel labelPiso = new JLabel ( " Piso: " );
                 this.jtfPiso = new JTextField ( 10 );
+                
+                this.jtfPiso.addFocusListener ( this.Solonumeros );
+                
                 panelDomic.add ( labelPiso, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 2, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 panelDomic.add ( this.jtfPiso, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 3, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Piso  ----------*/
@@ -275,6 +338,9 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  Torre  ----------*/
                 JLabel labelTorre = new JLabel ( "Torre: " );
                 this.jtfTorre = new JTextField ( 10 );
+                
+                this.jtfTorre.addFocusListener ( this.Solonumeros );
+                
                 panelDomic.add ( labelTorre, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 panelDomic.add ( this.jtfTorre, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Torre  ----------*/
@@ -282,12 +348,13 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  Dpto  ----------*/
                 JLabel labelDpto = new JLabel ( " Dpto: " );
                 this.jtfDpto = new JTextField ( 10 );
+                
+                this.jtfDpto.addFocusListener ( this.Solonumeros );
+                
                 panelDomic.add ( labelDpto, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 2, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 panelDomic.add ( this.jtfDpto, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 3, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Dpto  ----------*/
         /*=====  End of Panel Domicilio  ======*/
-
-        contenedorDocumento.add ( panelDomic, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 2, 1, 1, 0.5, PesoFilasPaneles, null ) );
 
         /*================================================
         =            Panel Localidad/Contacto            =
@@ -299,34 +366,81 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  Localidad  ----------*/
                 JLabel labelLocalidad = new JLabel ( "Localidad: " );
                 this.jtfLocalidad = new JTextField ( 20 );
-                panelLocalidadContacto.add ( labelLocalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 0, 1, 1, 0.1, ( 1.0 / panelLocalidadContactoFilas ), null ) );
-                panelLocalidadContacto.add ( this.jtfLocalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 1, 0, 3, 1, 0.9, ( 1.0 / panelLocalidadContactoFilas ), null ) );
+                
+                this.jtfLocalidad.addFocusListener ( this.SoloLetras );
+                
+                panelLocalidadContacto.add ( labelLocalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 0, 1, 1, 0.1, ( 1.0 / panelLocalidadContactoFilas ), null ) );
+                panelLocalidadContacto.add ( this.jtfLocalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 0, 3, 1, 0.9, ( 1.0 / panelLocalidadContactoFilas ), null ) );
                 /*----------  End of Localidad  ----------*/
 
                 /*----------  Teléfono  ----------*/
                 JLabel labelTelefono = new JLabel ( "Teléfono: " );
                 this.jtfTelefono = new JTextField ( 12 );
-                panelLocalidadContacto.add ( labelTelefono, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 1, 1, 1, 0.07, ( 1.0 / panelLocalidadContactoFilas ), null ) );
-                panelLocalidadContacto.add ( this.jtfTelefono, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 1, 1, 1, 1, 0.63, ( 1.0 / panelLocalidadContactoFilas ), null ) );
+                
+                this.jtfTelefono.addFocusListener ( new FocusAdapter() {
+                    
+                    
+                    @Override
+                    public void focusGained ( FocusEvent e )
+                    {
+                        JTextField telefonoTextField = ((JTextField) e.getSource());
+                        String telefono = telefonoTextField.getText();
+
+
+                        if ( telefono.isBlank() || telefono.isEmpty() )
+                            telefonoTextField.setForeground(Color.BLACK);
+
+                    }  
+                    
+                    
+                    @Override
+                    public void focusLost ( FocusEvent e ) 
+                    {
+                        
+                        JTextField telefonoTextField = ((JTextField) e.getSource());
+                        String telefono = telefonoTextField.getText();
+
+                        if ( telefono.matches ( "[+]?\\d{2,}[ ]*\\d++" ) )
+                            telefonoTextField.setForeground(Color.GREEN);
+                        else
+                            telefonoTextField.setForeground(Color.RED);
+
+                    }
+                    
+                });
+                
+                panelLocalidadContacto.add ( labelTelefono, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.07, ( 1.0 / panelLocalidadContactoFilas ), null ) );
+                panelLocalidadContacto.add ( this.jtfTelefono, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.63, ( 1.0 / panelLocalidadContactoFilas ), null ) );
                 /*----------  End of Código Teléfono  ----------*/
                 /*----------  Código Postal  ----------*/
                 JLabel labelCodPostal = new JLabel ( "Código Postal: " );
                 Insets margenlabelCodPostal = new Insets ( 0, 10, 0, 0 );
                 this.jtfCodPostal = new JTextField ( 4 );
-                panelLocalidadContacto.add ( labelCodPostal, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 2, 1, 1, 1, 0.03, ( 1.0 / panelLocalidadContactoFilas ), margenlabelCodPostal ) );
-                panelLocalidadContacto.add ( this.jtfCodPostal, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 3, 1, 1, 1, 0.27, ( 1.0 / panelLocalidadContactoFilas ), null ) );
+                
+                this.jtfCodPostal.addFocusListener (this.Solonumeros);
+                
+                panelLocalidadContacto.add ( labelCodPostal, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 2, 1, 1, 1, 0.03, ( 1.0 / panelLocalidadContactoFilas ), margenlabelCodPostal ) );
+                panelLocalidadContacto.add ( this.jtfCodPostal, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 3, 1, 1, 1, 0.27, ( 1.0 / panelLocalidadContactoFilas ), null ) );
                 /*----------  End of Código Postal  ----------*/
 
                 /*----------  Email  ----------*/
                 JLabel labelEmail = new JLabel ( "E-mail: " );
                 this.jtfEmail = new JTextField ( 20 );
-                panelLocalidadContacto.add ( labelEmail, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 2, 1, 1, 0.1, ( 1.0 / panelLocalidadContactoFilas ), null ) );
-                panelLocalidadContacto.add ( this.jtfEmail, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 1, 2, 3, 1, 0.9, ( 1.0 / panelLocalidadContactoFilas ), null ) );
+                
+                this.jtfEmail.addFocusListener( this.SoloEmail );
+                
+                panelLocalidadContacto.add ( labelEmail, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 2, 1, 1, 0.1, ( 1.0 / panelLocalidadContactoFilas ), null ) );
+                panelLocalidadContacto.add ( this.jtfEmail, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 2, 3, 1, 0.9, ( 1.0 / panelLocalidadContactoFilas ), null ) );
                 /*----------  End of Email  ----------*/
         /*=====  End of Panel Localidad/Contacto  ======*/
 
+        contenedorDocumento.add ( panelDomic, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 2, 1, 1, 0.5, PesoFilasPaneles, null ) );
         contenedorDocumento.add ( panelLocalidadContacto, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.5, PesoFilasPaneles, null ) );
 
+    }
+    
+    private void filaNivelInstruccion ( JPanel contenedorDocumento, double PesoFilasPaneles )
+    {
         /*=========================================
         =            Nivel Instruccion            =
         =========================================*/
@@ -394,17 +508,8 @@ public class IngresarAlumno extends JInternalFrame
 
         contenedorDocumento.add ( panelNivelInstruccion, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.BOTH, 0, 3, 2, 1, 1.0, PesoFilasPaneles, null ) );
 
-        /*=====================================
-        =            Boton Aceptar            =
-        =====================================*/
-        this.jbAceptar = new JButton ( "Aceptar" );
-        /*=====  End of Boton Aceptar  ======*/
-
-        contenedorDocumento.add ( this.jbAceptar, this.ConstraintsGridBag ( GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 4, 2, 1, 1.0, 0.1, null ) );
-        contenedorDocumento.add ( new JPanel (), this.ConstraintsGridBag ( GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 5, 2, 1, 1.0, 0.5, null ) );
-
     }
-
+    
     private GridBagConstraints ConstraintsGridBag ( int Posicionrelativa, int Rellenar, int X, int Y, int Ancho, int Alto, double WeightX, double WeightY, Insets margen )
     {
         
@@ -435,5 +540,128 @@ public class IngresarAlumno extends JInternalFrame
         return this;
         
     }
+
+    private final FocusAdapter Solonumeros = new FocusAdapter () {
+      
+        @Override
+        public void focusGained ( FocusEvent e )
+        {
+
+            JTextField numerosTextField = ((JTextField) e.getSource());
+            String numeros = numerosTextField.getText();
+
+
+            if ( numeros.isBlank() || numeros.isEmpty() )
+                numerosTextField.setForeground(Color.BLACK);
+
+        }
+        
+        @Override
+        public void focusLost ( FocusEvent e ) {
+            
+            JTextField numeros = ((JTextField) e.getSource());
+            String textoNumeros = numeros.getText();
+            
+            if ( textoNumeros.matches ( "[0-9]+" ) )
+                numeros.setForeground(Color.GREEN);
+            else
+                numeros.setForeground(Color.RED);
+            
+            
+        }
+        
+    };
+    
+    private final FocusAdapter SoloLetras = new FocusAdapter () {
+        
+        @Override
+        public void focusGained ( FocusEvent e )
+        {
+            JTextField letrasTextField = ((JTextField) e.getSource());
+            String letras = letrasTextField.getText();
+
+
+            if ( letras.isBlank() || letras.isEmpty() )
+                letrasTextField.setForeground(Color.BLACK);
+
+        }  
+
+        @Override
+        public void focusLost ( FocusEvent e )
+        {
+
+            JTextField letrasTextField = ((JTextField) e.getSource());
+            String letras = letrasTextField.getText();
+            
+            if ( letras.matches ( "[A-z\\ ]+" ) )
+                letrasTextField.setForeground(Color.GREEN);
+            else
+                letrasTextField.setForeground(Color.RED);
+
+        }
+        
+    };
+    
+    private final FocusAdapter LetrasYNumeros = new FocusAdapter (){
+        
+        @Override
+        public void focusGained ( FocusEvent e )
+        {
+            JTextField letrasTextField = ((JTextField) e.getSource());
+            String letras = letrasTextField.getText();
+
+
+            if ( letras.isBlank() || letras.isEmpty() )
+                letrasTextField.setForeground(Color.BLACK);
+
+        }  
+
+        @Override
+        public void focusLost ( FocusEvent e )
+        {
+
+            JTextField letrasTextField = ((JTextField) e.getSource());
+            String letras = letrasTextField.getText();
+            
+            if ( letras.matches ( "[A-z\\ ]+[0-9]+" ) )
+                letrasTextField.setForeground(Color.GREEN);
+            else
+                letrasTextField.setForeground(Color.RED);
+
+        }
+        
+    };
+    
+    private final FocusAdapter SoloEmail = new FocusAdapter () {
+        
+        @Override
+        public void focusGained ( FocusEvent e )
+        {
+
+            JTextField emailTextField = ((JTextField) e.getSource());
+            String email = emailTextField.getText();
+
+
+            if ( email.isBlank() || email.isEmpty() )
+                emailTextField.setForeground(Color.BLACK);
+
+        }
+
+        @Override
+        public void focusLost ( FocusEvent e )
+        {
+
+            JTextField emailTextField = ((JTextField) e.getSource());
+            String email = emailTextField.getText();
+            String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+
+            if ( email.matches(regex) )
+                emailTextField.setForeground ( Color.GREEN );
+            else
+                emailTextField.setForeground ( Color.RED );
+
+        }
+        
+    };
     
 }
