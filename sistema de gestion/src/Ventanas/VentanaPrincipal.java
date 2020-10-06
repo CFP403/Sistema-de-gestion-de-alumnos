@@ -7,6 +7,7 @@ import Curso.ModificarCurso;
 
 import Alumno.EliminarAlumno;
 import Alumno.IngresarAlumno;
+import Alumno.InscribirAlumno;
 import Alumno.ModificarAlumno;
 
 import Profesor.EliminarProfesor;
@@ -27,7 +28,7 @@ import java.awt.event.ActionEvent;
 public class VentanaPrincipal extends JFrame implements ActionListener
 {
     
-    private JMenuItem ingresarAlumno, modificarAlumno, eliminarAlumno;
+    private JMenuItem ingresarAlumno, modificarAlumno, eliminarAlumno, inscribirAlumno;
     private JMenuItem ingresarDocente, modificarDocente, eliminarDocente;
     private JMenuItem ingresarCurso, modificarCurso, eliminarCurso;
     private JDesktopPane panelInterno;
@@ -66,8 +67,11 @@ public class VentanaPrincipal extends JFrame implements ActionListener
             modificarAlumno.addActionListener(this);
             eliminarAlumno = new JMenuItem("Eliminar alumno");
             eliminarAlumno.addActionListener(this);
+            inscribirAlumno = new JMenuItem ( "Inscribir alumno" );
+            inscribirAlumno.addActionListener(this);
                 // Agregamos los items:
                 alumno.add(ingresarAlumno);
+                alumno.add(inscribirAlumno);
                 alumno.add(modificarAlumno);
                 alumno.add(eliminarAlumno);
             
@@ -152,10 +156,17 @@ public class VentanaPrincipal extends JFrame implements ActionListener
             
         }
         
+        if ( itemSeleccionado.getActionCommand().equals ( "Inscribir alumno" ) )
+        {
+            
+            this.panelInterno.add ( new InscribirAlumno ().Mostrar() );
+            
+        }
+        
         if ( itemSeleccionado.getActionCommand().equals ( "Modificar alumno" ) ) 
         {
             
-            this.panelInterno.add ( new ModificarAlumno () );
+            this.panelInterno.add ( new ModificarAlumno ().Mostrar() );
             
         }
         
