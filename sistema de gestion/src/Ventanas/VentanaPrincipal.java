@@ -166,7 +166,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener
         if ( itemSeleccionado.getActionCommand().equals ( "Modificar alumno" ) ) 
         {
             
-            this.panelInterno.add ( new ModificarAlumno () );
+            this.panelInterno.add ( new ModificarAlumno ().Mostrar() );
             
         }
         

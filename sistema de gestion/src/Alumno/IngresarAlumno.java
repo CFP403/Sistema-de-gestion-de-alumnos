@@ -10,11 +10,12 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
@@ -22,17 +23,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
-import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
-import javax.swing.text.DateFormatter;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Varela Vargas Leandro Gastón
  */
-public class IngresarAlumno extends JInternalFrame
+public final class IngresarAlumno extends JInternalFrame
 {
 
     private final GridBagLayout layout = new GridBagLayout ();
@@ -87,7 +87,7 @@ public class IngresarAlumno extends JInternalFrame
         super ( "Ingresar Alumno" );
 
         this.Configurar();
-        this.agregarComponentes();
+        this.agregarComponentes( );
 
     }
 
@@ -104,7 +104,7 @@ public class IngresarAlumno extends JInternalFrame
 
     }
 
-    private void agregarComponentes ()
+    private void agregarComponentes ( )
     {
 
         this.jpDatosAlumno = new JPanel ();
@@ -115,6 +115,71 @@ public class IngresarAlumno extends JInternalFrame
             
     }
     
+    private boolean ingresosCorrectos ()
+    {
+        
+        try
+        {
+            
+            String TipoDocumento = (String)this.jcbTipoDoc.getSelectedItem();
+            String EstadoDocumento = this.bgEstadoDoc.getSelection().getActionCommand();
+            String Sexo = (String)this.jcbSexo.getSelectedItem();
+            String NivelInstruccion = this.bgNivelInstruccion.getSelection().getActionCommand();
+            String Completo = this.bgHasta.getSelection().getActionCommand();
+            String HastaAnio = this.jtfAnioCompleto.getText();
+
+            List<JTextField> listaTextFields = new ArrayList();
+                listaTextFields.add (this.jtfNroDoc);
+                listaTextFields.add (this.jtfApellido);
+                listaTextFields.add (this.jtfNombre);
+                listaTextFields.add (this.jtfLugarNacimiento);
+                listaTextFields.add (this.jtfNacionalidad);
+                listaTextFields.add (this.jtfDomicilioCalle);
+                listaTextFields.add (this.jtfNro);
+                listaTextFields.add (this.jtfPiso);
+                listaTextFields.add (this.jtfDpto);
+                listaTextFields.add (this.jtfLocalidad);
+                listaTextFields.add (this.jtfTelefono);
+                listaTextFields.add (this.jtfCodPostal);
+                listaTextFields.add (this.jtfEmail);
+                
+            if ( !Completo.equals("Hasta Año") || Completo.equals("Hasta Año") && (!HastaAnio.isBlank() || !HastaAnio.isEmpty()) )
+            {
+                
+                for ( JTextField jtf : listaTextFields )
+                {
+                    
+                    if ( jtf.getText().isBlank() || jtf.getText().isEmpty() )
+                    {
+                        JOptionPane.showMessageDialog(this, "Error, falta información.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        return false;
+                    }
+                    else if (jtf.getForeground() == Color.RED)
+                    {
+                        JOptionPane.showMessageDialog(this, "Error, hay información incorrecta.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        return false;
+                    }
+                    
+                }
+                
+                return true;
+                
+            }
+            
+            return false;
+                
+        }
+        catch ( NullPointerException ex )
+        {
+
+            JOptionPane.showMessageDialog(this, "No ha seleccionado una opción de cada uno de los botones de opciones.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            //System.out.println ( ex.getCause().getClass().componentType() );
+            return false;
+            
+        }
+        
+    }
+    
     private void agregarDocumento ( JPanel contenedorDocumento )
     {
 
@@ -122,36 +187,35 @@ public class IngresarAlumno extends JInternalFrame
 
         contenedorDocumento.setLayout ( this.layout );
 
-        // Panel DOCUMENTO y ESTADO DOCUMENTO.
-        this.filaDocumentoYEstadoDocumento(contenedorDocumento, PesoFilasPaneles);
-        // Panel INFORMACIÓN PERSONAL y NACIMIENTO
-        this.filaInfoPersyNac(contenedorDocumento, PesoFilasPaneles);
-        // Panel DOMICILIO y LOCALIDAD/CONTACTO
-        this.filaDomicyLocalidadContacto(contenedorDocumento, PesoFilasPaneles);
+        // FILA UNO:
+            // Panel DOCUMENTO.
+            this.ColumnaDocumento(contenedorDocumento, PesoFilasPaneles);
+            // Panel ESTADODOCUMENTO.
+            this.ColumnaEstadoDocumento(contenedorDocumento, PesoFilasPaneles);
+        
+        // FILA DOS:
+            // Panel INFORMACIÓN PERSONAL.
+            this.ColumnaInfoPers(contenedorDocumento, PesoFilasPaneles);
+            // Panel NACIMIENTO.
+            this.ColumnaNac(contenedorDocumento, PesoFilasPaneles);
+        
+        // FILA TRES:
+            // Panel DOMICILIO.
+            this.ColumnaDomic(contenedorDocumento, PesoFilasPaneles);
+            // Panel LOCALIDAD/CONTACTO.
+            this.ColumnaLocalidadContacto(contenedorDocumento, PesoFilasPaneles);
         // Panel NIVEL INSTRUCCION
-        this.filaNivelInstruccion(contenedorDocumento, PesoFilasPaneles);
         
-        /*=====================================
-        =            Boton Aceptar            =
-        =====================================*/
-        this.jbAceptar = new JButton ( "Aceptar" );
+        // FILA CUATRO:
+            this.filaNivelInstruccion(contenedorDocumento, PesoFilasPaneles);
         
-        this.jbAceptar.addActionListener ( (ActionEvent l) -> {
-            
-            System.out.println ( this.bgEstadoDoc.getSelection().getActionCommand() );
-            
-        });
-        
-        /*=====  End of Boton Aceptar  ======*/
-
-        contenedorDocumento.add ( this.jbAceptar, this.ConstraintsGridBag ( GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 4, 2, 1, 1.0, 0.1, null ) );
-        contenedorDocumento.add ( new JPanel (), this.ConstraintsGridBag ( GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 5, 2, 1, 1.0, 0.5, null ) );
+        // Boton ACEPTAR
+        this.botonAceptar( contenedorDocumento );
 
     }
 
-    private void filaDocumentoYEstadoDocumento ( JPanel contenedorDocumento, double PesoFilasPaneles )
+    private void ColumnaDocumento ( JPanel contenedorDocumento, double PesoFilasPaneles )
     {
-        
         /*============================================
         =            Panel TipoDocumentos            =
         ============================================*/
@@ -181,7 +245,13 @@ public class IngresarAlumno extends JInternalFrame
                     panelTipoDocumentos.add ( panelnroDoc );
             /*----------  Fin Panel NroDoc  ----------*/
         /*=====  End of Panel TipoDocumentos  ======*/
-
+        
+        contenedorDocumento.add ( panelTipoDocumentos, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST, GridBagConstraints.BOTH, 0, 0, 1, 1, 0.5, PesoFilasPaneles, null ) );
+    }
+    
+    private void ColumnaEstadoDocumento ( JPanel contenedorDocumento, double PesoFilasPaneles )
+    {
+        
         /*=======================================
         =            Panel EstadoDoc            =
         =======================================*/
@@ -213,12 +283,11 @@ public class IngresarAlumno extends JInternalFrame
             /*----------  Fin EstadoDoc  ----------*/
         /*=====  End of Panel EstadoDoc  ======*/
 
-        contenedorDocumento.add ( panelTipoDocumentos, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST, GridBagConstraints.BOTH, 0, 0, 1, 1, 0.5, PesoFilasPaneles, null ) );
         contenedorDocumento.add ( panelEstado, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST, GridBagConstraints.HORIZONTAL, 1, 0, 1, 1, 0.5, PesoFilasPaneles, null ) );
         
     }
     
-    private void filaInfoPersyNac ( JPanel contenedorDocumento, double PesoFilasPaneles )
+    private void ColumnaInfoPers (JPanel contenedorDocumento, double PesoFilasPaneles)
     {
         /*==================================================
         =            Panel Información Personal            =
@@ -255,6 +324,14 @@ public class IngresarAlumno extends JInternalFrame
                 panelInfoPers.add ( this.jcbSexo, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.9, ( 1.0 / panelInfoFilas ), null ) );
                 /*----------  End of Sexo  ----------*/
         /*=====  End of Panel Información Personal  ======*/
+        
+        contenedorDocumento.add ( panelInfoPers, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.5, PesoFilasPaneles, null ) );
+        
+    }
+    
+    private void ColumnaNac ( JPanel contenedorDocumento, double PesoFilasPaneles )
+    {
+        
 
         /*========================================
         =            Panel Nacimiento            =
@@ -280,7 +357,7 @@ public class IngresarAlumno extends JInternalFrame
                     this.smModeloFecha = new SpinnerDateModel ( fechaInicial, fechaMin, fechaMax, 1 );
                     this.jsFecha = new JSpinner ( this.smModeloFecha );
                     
-                    JSpinner.DateEditor editor = new JSpinner.DateEditor(this.jsFecha, "dd/MM/yyyy");
+                    JSpinner.DateEditor editor = new JSpinner.DateEditor(this.jsFecha, "yyyy/MM/dd");
                     this.jsFecha.setEditor(editor);
                     
                         panelFechaNac.add ( labelFechaNac );
@@ -309,12 +386,11 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  End of Nacionalidad  ----------*/
         /*=====  End of Panel Nacimiento  ======*/
 
-        contenedorDocumento.add ( panelInfoPers, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.5, PesoFilasPaneles, null ) );
         contenedorDocumento.add ( panelNac, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.5, PesoFilasPaneles, null ) );
 
     }
     
-    private void filaDomicyLocalidadContacto ( JPanel contenedorDocumento, double PesoFilasPaneles )
+    private void ColumnaDomic ( JPanel contenedorDocumento, double PesoFilasPaneles )
     {
         /*=======================================
         =            Panel Domicilio            =
@@ -373,7 +449,11 @@ public class IngresarAlumno extends JInternalFrame
                 panelDomic.add ( this.jtfDpto, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 3, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 /*----------  End of Dpto  ----------*/
         /*=====  End of Panel Domicilio  ======*/
-
+        contenedorDocumento.add ( panelDomic, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 2, 1, 1, 0.5, PesoFilasPaneles, null ) );
+    }
+    
+    private void ColumnaLocalidadContacto ( JPanel contenedorDocumento, double PesoFilasPaneles )
+    {
         /*================================================
         =            Panel Localidad/Contacto            =
         ================================================*/
@@ -422,7 +502,6 @@ public class IngresarAlumno extends JInternalFrame
                 /*----------  End of Email  ----------*/
         /*=====  End of Panel Localidad/Contacto  ======*/
 
-        contenedorDocumento.add ( panelDomic, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 2, 1, 1, 0.5, PesoFilasPaneles, null ) );
         contenedorDocumento.add ( panelLocalidadContacto, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.5, PesoFilasPaneles, null ) );
 
     }
@@ -508,6 +587,66 @@ public class IngresarAlumno extends JInternalFrame
 
         contenedorDocumento.add ( panelNivelInstruccion, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.BOTH, 0, 3, 2, 1, 1.0, PesoFilasPaneles, null ) );
 
+    }
+    
+    private void botonAceptar (JPanel contenedorDocumento)
+    {
+         /*=====================================
+        =            Boton Aceptar            =
+        =====================================*/
+        this.jbAceptar = new JButton ( "Ingresar a Base De Datos" );
+        
+        this.jbAceptar.addActionListener ( (ActionEvent l) -> {
+            
+            if ( IngresarAlumno.this.ingresosCorrectos() )
+            {
+            
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(((Date)this.smModeloFecha.getValue()));
+
+                String TipoDocumento = (String)this.jcbTipoDoc.getSelectedItem();
+                String NroDocumento = this.jtfNroDoc.getText();
+                String EstadoDocumento = this.bgEstadoDoc.getSelection().getActionCommand();
+                String Apellido = this.jtfApellido.getText();
+                String Nombre = this.jtfNombre.getText();
+                String Sexo = (String)this.jcbSexo.getSelectedItem();
+                String FechaNacimiento = calendar.get(Calendar.DATE) + "/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR);
+                String LugarNacimiento = this.jtfLugarNacimiento.getText();
+                String Nacionalidad = this.jtfNacionalidad.getText();
+                String CalleDomicilio = this.jtfDomicilioCalle.getText();
+                String Nro = this.jtfNro.getText();
+                String Piso = this.jtfPiso.getText();
+                String Dpto = this.jtfDpto.getText();
+                String Localidad = this.jtfLocalidad.getText();
+                String NroTelefono = this.jtfTelefono.getText();
+                String CodPostal = this.jtfCodPostal.getText();
+                String Email = this.jtfEmail.getText();
+                String NivelInstruccion = this.bgNivelInstruccion.getSelection().getActionCommand();
+                String Completo = this.bgHasta.getSelection().getActionCommand();
+                String HastaAnio = this.jtfAnioCompleto.getText();
+
+
+                System.out.println ( "\tTipo Documento: " + TipoDocumento + "\tDocumento: " + NroDocumento + 
+                        "\tEstado del documento: " + EstadoDocumento );
+                System.out.println ( "\tApellido/s: " + Apellido + "\tNombre: " + Nombre + "\tSexo: " + Sexo + 
+                        "\tFecha de Nacimiento: " + FechaNacimiento + "\tLugar de Nacimiento: " + LugarNacimiento + "\tNacionalidad: " + Nacionalidad );
+                System.out.println ( "\tCalle-Domicilio: " + CalleDomicilio + "\tN°: " + Nro + "\tDpto: " + Dpto + "\tPiso: " + Piso + "\tLocalidad: " +
+                        Localidad + "\tNro de Teléfono: " + NroTelefono + "\tCódigo Postal: " + CodPostal + "\tE-mail: " + Email );
+                System.out.print ( "\tNivel de Instrucción: " + NivelInstruccion + "\t");
+
+                if ( Completo.equals("Hasta Año") )
+                    System.out.println ( "Hasta Año: " + HastaAnio );
+                else
+                    System.out.println ( Completo );
+
+            }
+            
+        });
+        
+        /*=====  End of Boton Aceptar  ======*/
+
+        contenedorDocumento.add ( this.jbAceptar, this.ConstraintsGridBag ( GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 4, 2, 1, 1.0, 0.1, null ) );
+        contenedorDocumento.add ( new JPanel (), this.ConstraintsGridBag ( GridBagConstraints.CENTER, GridBagConstraints.NONE, 0, 5, 2, 1, 1.0, 0.5, null ) );
     }
     
     private GridBagConstraints ConstraintsGridBag ( int Posicionrelativa, int Rellenar, int X, int Y, int Ancho, int Alto, double WeightX, double WeightY, Insets margen )
