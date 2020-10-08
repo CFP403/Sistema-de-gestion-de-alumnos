@@ -1,7 +1,7 @@
 
 package Profesor;
 
-import javax.swing.JInternalFrame;
+import Ventanas.TipoVentana.ETipoVentana;
 
 /**
  *
@@ -12,7 +12,7 @@ public class EliminarProfesor extends ModeloVentanaProfesor
     
     public EliminarProfesor ()
     {
-        super ( "Eliminar Docente", ModeloVentanaProfesor.TipoVentana.Modificar );
+        super ( "Eliminar Docente", ETipoVentana.Modificar );
     }
     
 }

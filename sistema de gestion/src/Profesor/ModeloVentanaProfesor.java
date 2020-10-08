@@ -1,6 +1,7 @@
 
 package Profesor;
 
+import Ventanas.TipoVentana.ETipoVentana;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import javax.swing.JButton;
@@ -19,24 +20,16 @@ import validadoresjtfenfoco.SoloNumeros;
 public class ModeloVentanaProfesor extends JInternalFrame
 {
     
-    public static enum TipoVentana
-    {
-        
-        Crear,
-        Modificar
-        
-    }
-    
-    protected TipoVentana tipo;
+    private ETipoVentana tipo;
     
     protected final LayoutManager layout = new GridLayout ( 4, 1 );
     protected JTextField jtfNombre;
     protected JComboBox jcbNroDNI;
     protected JTextField jtfNroDNI;
-    protected JTextField jtfTeléfono;
+    protected JTextField jtfTelefono;
     protected JButton jbAceptar;
     
-    public ModeloVentanaProfesor ( String titulo, TipoVentana tipo )
+    public ModeloVentanaProfesor ( String titulo, ETipoVentana tipo )
     {
         
         super ( titulo );
@@ -88,9 +81,9 @@ public class ModeloVentanaProfesor extends JInternalFrame
         
         JPanel panelTelefono = new JPanel ();
             panelTelefono.add ( new JLabel ("Teléfono: ") );
-            this.jtfTeléfono = new JTextField (8);
-                this.jtfTeléfono.addFocusListener( new SoloNumeros() );
-            panelTelefono.add ( this.jtfTeléfono );
+            this.jtfTelefono = new JTextField (8);
+                this.jtfTelefono.addFocusListener( new SoloNumeros() );
+            panelTelefono.add ( this.jtfTelefono );
         this.add ( panelTelefono );
         
         switch ( this.tipo )
@@ -107,7 +100,7 @@ public class ModeloVentanaProfesor extends JInternalFrame
                 break;
             }
             
-            case Crear:
+            default:
             {
                 
                 JPanel panelBoton = new JPanel();
@@ -118,8 +111,6 @@ public class ModeloVentanaProfesor extends JInternalFrame
             }
             
         }
-        
-        
         
     }
     
