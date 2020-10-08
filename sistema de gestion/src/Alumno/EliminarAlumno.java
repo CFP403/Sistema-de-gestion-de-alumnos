@@ -7,6 +7,7 @@ package Alumno;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
@@ -21,7 +22,8 @@ import javax.swing.JTextField;
 public class EliminarAlumno extends JInternalFrame
 {
  
-    private final GridLayout layout = new GridLayout (3, 1);
+    private final LayoutManager layout = new GridLayout (3, 1);
+    
     private JComboBox jcbDNI;
     private JTextField jtfNombreAlumno;
     private JButton jbAceptar;

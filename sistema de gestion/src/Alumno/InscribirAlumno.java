@@ -3,6 +3,7 @@ package Alumno;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
@@ -17,7 +18,7 @@ import javax.swing.JTextField;
 public final class InscribirAlumno extends JInternalFrame
 {
 
-    private final GridLayout layout = new GridLayout ( 4, 1 );
+    private final LayoutManager layout = new GridLayout ( 4, 1 );
     private JComboBox jcbDNI;
     private JTextField jtfNombreAlumno;
     private JComboBox jcbNombreCurso;

@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ import javax.swing.JOptionPane;
 public final class IngresarAlumno extends JInternalFrame
 {
 
-    private final GridBagLayout layout = new GridBagLayout ();
+    private final LayoutManager layout = new GridBagLayout ();
 
     private JPanel jpDatosAlumno;
         //Documento:
