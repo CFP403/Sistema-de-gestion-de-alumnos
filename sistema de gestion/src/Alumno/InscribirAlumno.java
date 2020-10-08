@@ -2,6 +2,8 @@
 package Alumno;
 
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
@@ -16,7 +18,7 @@ import javax.swing.JTextField;
 public final class InscribirAlumno extends JInternalFrame
 {
 
-    private final FlowLayout layout = new FlowLayout ( FlowLayout.CENTER );
+    private final LayoutManager layout = new GridLayout ( 4, 1 );
     private JComboBox jcbDNI;
     private JTextField jtfNombreAlumno;
     private JComboBox jcbNombreCurso;
@@ -35,26 +37,26 @@ public final class InscribirAlumno extends JInternalFrame
     private void agregarComponentes ()
     {
         
-        String [] DNIAlumnos = { "12345678", "12345678", "12345678" };
-        String [] NombresCursos = { "Java", "AutoCAD", "PhotoShop" };
+        String [] DNIAlumnos = this.obtenerDNIs();
+        String [] NombresCursos = this.obtenerCursos();
         
-        JPanel panelDNI = new JPanel ( new FlowLayout (FlowLayout.LEFT) );
+        JPanel panelDNI = new JPanel ( new FlowLayout (FlowLayout.CENTER) );
         this.jcbDNI = new JComboBox(DNIAlumnos);
         panelDNI.add ( new JLabel ("DNI del Alumno: ") );
         panelDNI.add(this.jcbDNI);
         
-        JPanel panelNombreAlumno = new JPanel( new FlowLayout ( FlowLayout.LEFT ) );
+        JPanel panelNombreAlumno = new JPanel( new FlowLayout ( FlowLayout.CENTER ) );
         this.jtfNombreAlumno = new JTextField (20);
         this.jtfNombreAlumno.setEditable(false);
         panelNombreAlumno.add ( new JLabel ("Nombre del Alumno: ") );
         panelNombreAlumno.add ( this.jtfNombreAlumno );
         
-        JPanel panelCurso = new JPanel ( new FlowLayout (FlowLayout.LEFT) );
+        JPanel panelCurso = new JPanel ( new FlowLayout (FlowLayout.CENTER) );
         this.jcbNombreCurso = new JComboBox (NombresCursos);
         panelCurso.add ( new JLabel ("Nombre del Curso: ") );
         panelCurso.add ( this.jcbNombreCurso );
         
-        JPanel panelBoton = new JPanel ( new FlowLayout ( FlowLayout.LEFT ) );
+        JPanel panelBoton = new JPanel ( new FlowLayout ( FlowLayout.CENTER ) );
         this.jbAceptar = new JButton ("Inscribir Alumno");
         panelBoton.add ( this.jbAceptar );
         
@@ -63,6 +65,18 @@ public final class InscribirAlumno extends JInternalFrame
         this.add(panelCurso);
         this.add(panelBoton);
         
+    }
+    
+    private String [] obtenerDNIs ()
+    {
+        String[] DNIs = { "12345678", "12345678", "12345678" };
+        return DNIs;
+    }
+    
+    private String [] obtenerCursos ()
+    {
+        String[] Cursos = { "Java", "AutoCAD", "PhotoShop" };
+        return Cursos;
     }
 
     private void Configurar ()
