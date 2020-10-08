@@ -1,6 +1,8 @@
 
 package Alumno;
 
+import validadoresjtfenfoco.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -8,8 +10,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -237,7 +237,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelNroDoc = new JLabel ( "Nro Doc: " );
                 this.jtfNroDoc = new JTextField ( 8 );
                 
-                this.jtfNroDoc.addFocusListener( this.Solonumeros );
+                this.jtfNroDoc.addFocusListener(  new SoloNumeros()  );
                 
                 panelnroDoc.add ( labelNroDoc );
                 panelnroDoc.add ( this.jtfNroDoc );
@@ -300,7 +300,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelApellidos = new JLabel ( "Apellido/s: " );
                 this.jtfApellido = new JTextField ( 15 );
                 
-                this.jtfApellido.addFocusListener ( this.SoloLetras );
+                this.jtfApellido.addFocusListener ( new SoloLetras() );
                 
                 panelInfoPers.add ( labelApellidos, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 0, 1, 1, 0.1, ( 1.0 / panelInfoFilas ), null ) );
                 panelInfoPers.add ( this.jtfApellido, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 0, 1, 1, 0.9, ( 1.0 / panelInfoFilas ), null ) );
@@ -310,7 +310,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelNombres = new JLabel ( "Nombre/s:" );
                 this.jtfNombre = new JTextField ( 15 );
                 
-                this.jtfNombre.addFocusListener ( this.SoloLetras );
+                this.jtfNombre.addFocusListener ( new SoloLetras() );
                 
                 panelInfoPers.add ( labelNombres, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.1, ( 1.0 / panelInfoFilas ), null ) );
                 panelInfoPers.add ( this.jtfNombre, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.9, ( 1.0 / panelInfoFilas ), null ) );
@@ -369,7 +369,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelLugarNacimiento = new JLabel ( "Lugar de Nac: " );
                 this.jtfLugarNacimiento = new JTextField ( 20 );
                 
-                this.jtfLugarNacimiento.addFocusListener ( this.SoloLetras );
+                this.jtfLugarNacimiento.addFocusListener ( new SoloLetras() );
                 
                 panelNac.add ( labelLugarNacimiento, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.1, ( 1.0 / panelNacFilas ), margenlabelsNacimiento ) );
                 panelNac.add ( this.jtfLugarNacimiento, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.9, ( 1.0 / panelNacFilas ), null )  );
@@ -379,7 +379,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelNacionalidad = new JLabel ( "Nacionalidad: " );
                 this.jtfNacionalidad = new JTextField ( 20 );
                 
-                this.jtfNacionalidad.addFocusListener ( this.SoloLetras );
+                this.jtfNacionalidad.addFocusListener ( new SoloLetras() );
                 
                 panelNac.add ( labelNacionalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 2, 1, 1, 0.1, ( 1.0 / panelNacFilas ), margenlabelsNacimiento )  );
                 panelNac.add ( this.jtfNacionalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.9, ( 1.0 / panelNacFilas ), null )  );
@@ -403,7 +403,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelCalleDomicilio = new JLabel ( "Calle - Domicilio:" );
                 this.jtfDomicilioCalle = new JTextField ( 20 );
                 
-                this.jtfDomicilioCalle.addFocusListener(this.SoloLetras);
+                this.jtfDomicilioCalle.addFocusListener(new SoloLetras());
                 
                 panelDomic.add ( labelCalleDomicilio, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.NONE, 0, 0, 1, 1, 0.05, ( 1.0 / panelDomicFilas ), null ) );
                 panelDomic.add ( this.jtfDomicilioCalle, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 0, 3, 1, 0.95, ( 1.0 / panelDomicFilas ), null ) );
@@ -413,7 +413,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelNro = new JLabel ( "N°: " );
                 this.jtfNro = new JTextField ( 4 );
                 
-                this.jtfNro.addFocusListener ( this.Solonumeros );
+                this.jtfNro.addFocusListener (  new SoloNumeros()  );
                 
                 panelDomic.add ( labelNro, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 panelDomic.add ( this.jtfNro, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
@@ -423,7 +423,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelPiso = new JLabel ( " Piso: " );
                 this.jtfPiso = new JTextField ( 10 );
                 
-                this.jtfPiso.addFocusListener ( this.Solonumeros );
+                this.jtfPiso.addFocusListener (  new SoloNumeros()  );
                 
                 panelDomic.add ( labelPiso, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 2, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 panelDomic.add ( this.jtfPiso, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 3, 1, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
@@ -433,7 +433,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelTorre = new JLabel ( "Torre: " );
                 this.jtfTorre = new JTextField ( 10 );
                 
-                this.jtfTorre.addFocusListener ( this.Solonumeros );
+                this.jtfTorre.addFocusListener (  new SoloNumeros()  );
                 
                 panelDomic.add ( labelTorre, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 0, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 panelDomic.add ( this.jtfTorre, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
@@ -443,7 +443,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelDpto = new JLabel ( " Dpto: " );
                 this.jtfDpto = new JTextField ( 10 );
                 
-                this.jtfDpto.addFocusListener ( this.Solonumeros );
+                this.jtfDpto.addFocusListener (  new SoloNumeros()  );
                 
                 panelDomic.add ( labelDpto, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.NONE, 2, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
                 panelDomic.add ( this.jtfDpto, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 3, 2, 1, 1, 0.25, ( 1.0 / panelDomicFilas ), null ) );
@@ -465,7 +465,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelLocalidad = new JLabel ( "Localidad: " );
                 this.jtfLocalidad = new JTextField ( 20 );
                 
-                this.jtfLocalidad.addFocusListener ( this.SoloLetras );
+                this.jtfLocalidad.addFocusListener ( new SoloLetras() );
                 
                 panelLocalidadContacto.add ( labelLocalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 0, 1, 1, 0.1, ( 1.0 / panelLocalidadContactoFilas ), null ) );
                 panelLocalidadContacto.add ( this.jtfLocalidad, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 0, 3, 1, 0.9, ( 1.0 / panelLocalidadContactoFilas ), null ) );
@@ -475,7 +475,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelTelefono = new JLabel ( "Teléfono: " );
                 this.jtfTelefono = new JTextField ( 12 );
                 
-                this.jtfTelefono.addFocusListener ( this.telefono );
+                this.jtfTelefono.addFocusListener ( new SoloTelefono() );
                 
                 panelLocalidadContacto.add ( labelTelefono, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 1, 1, 1, 0.07, ( 1.0 / panelLocalidadContactoFilas ), null ) );
                 panelLocalidadContacto.add ( this.jtfTelefono, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 1, 1, 1, 0.63, ( 1.0 / panelLocalidadContactoFilas ), null ) );
@@ -485,7 +485,7 @@ public final class IngresarAlumno extends JInternalFrame
                 Insets margenlabelCodPostal = new Insets ( 0, 10, 0, 0 );
                 this.jtfCodPostal = new JTextField ( 4 );
                 
-                this.jtfCodPostal.addFocusListener (this.Solonumeros);
+                this.jtfCodPostal.addFocusListener ( new SoloNumeros() );
                 
                 panelLocalidadContacto.add ( labelCodPostal, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 2, 1, 1, 1, 0.03, ( 1.0 / panelLocalidadContactoFilas ), margenlabelCodPostal ) );
                 panelLocalidadContacto.add ( this.jtfCodPostal, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 3, 1, 1, 1, 0.27, ( 1.0 / panelLocalidadContactoFilas ), null ) );
@@ -495,7 +495,7 @@ public final class IngresarAlumno extends JInternalFrame
                 JLabel labelEmail = new JLabel ( "E-mail: " );
                 this.jtfEmail = new JTextField ( 20 );
                 
-                this.jtfEmail.addFocusListener( this.SoloEmail );
+                this.jtfEmail.addFocusListener( new SoloEmail() );
                 
                 panelLocalidadContacto.add ( labelEmail, this.ConstraintsGridBag ( GridBagConstraints.NORTHEAST , GridBagConstraints.HORIZONTAL, 0, 2, 1, 1, 0.1, ( 1.0 / panelLocalidadContactoFilas ), null ) );
                 panelLocalidadContacto.add ( this.jtfEmail, this.ConstraintsGridBag ( GridBagConstraints.NORTHWEST , GridBagConstraints.HORIZONTAL, 1, 2, 3, 1, 0.9, ( 1.0 / panelLocalidadContactoFilas ), null ) );
@@ -568,7 +568,7 @@ public final class IngresarAlumno extends JInternalFrame
                     panelHastaAnio.add ( labelAnioCompleto );
                     this.jtfAnioCompleto = new JTextField ( 5 );
                     
-                    this.jtfAnioCompleto.addFocusListener ( this.Solonumeros );
+                    this.jtfAnioCompleto.addFocusListener ( new SoloNumeros () );
                     
                     panelHastaAnio.add ( this.jtfAnioCompleto );
             /*----------  End of Panel HastaAnio  ----------*/
@@ -679,78 +679,5 @@ public final class IngresarAlumno extends JInternalFrame
         return this;
         
     }
-
-    private final FocusAdapter Solonumeros = new FocusAdapter () {
-      
-        @Override
-        public void focusLost ( FocusEvent e ) {
-            
-            JTextField numeros = ((JTextField) e.getSource());
-            String textoNumeros = numeros.getText();
-            
-            if ( textoNumeros.matches ( "[0-9]+[ ]*" ) )
-                numeros.setForeground(Color.BLACK);
-            else
-                numeros.setForeground(Color.RED);
-            
-            
-        }
-        
-    };
-    
-    private final FocusAdapter SoloLetras = new FocusAdapter () {
-        
-        @Override
-        public void focusLost ( FocusEvent e )
-        {
-
-            JTextField letrasTextField = ((JTextField) e.getSource());
-            String letras = letrasTextField.getText();
-            
-            if ( letras.matches ( "[A-z\\ ]+" ) )
-                letrasTextField.setForeground(Color.BLACK);
-            else
-                letrasTextField.setForeground(Color.RED);
-
-        }
-        
-    };
-    
-    private final FocusAdapter SoloEmail = new FocusAdapter () {
-        
-        @Override
-        public void focusLost ( FocusEvent e )
-        {
-
-            JTextField emailTextField = ((JTextField) e.getSource());
-            String email = emailTextField.getText();
-            String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w ]+";
-
-            if ( email.matches(regex) )
-                emailTextField.setForeground ( Color.BLACK );
-            else
-                emailTextField.setForeground ( Color.RED );
-
-        }
-        
-    };
-    
-    private final FocusAdapter telefono = new FocusAdapter() {
-                    
-        @Override
-        public void focusLost ( FocusEvent e ) 
-        {
-
-            JTextField telefonoTextField = ((JTextField) e.getSource());
-            String telefono = telefonoTextField.getText();
-
-            if ( telefono.matches ( "[+]?\\d*[ ]*[\\d]+[ ]*" ) )
-                telefonoTextField.setForeground(Color.BLACK);
-            else
-                telefonoTextField.setForeground(Color.RED);
-
-        }
-
-    };
     
 }
